@@ -4,11 +4,13 @@ const User = require('../models/userModel');
 
 const protect = asyncHandler(async(req, res, next) => {
     try {
-        const token = res.cookie.token;
+        const token = req.cookies.token;
+
         if(!token) {
             res.status(400)
             throw new Error('Not authorized please login')
         }
+
 
         //Verify token
         const verified = jwt.verify(token, process.env.JWT_SECRET)

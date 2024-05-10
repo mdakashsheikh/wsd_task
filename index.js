@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { conntectDB } = require('./config/db');
 const userRoute = require('./routes/userRoute');
+const messageRoute = require('./routes/messageRoute')
 const errorHandler = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 5001
 conntectDB();
 
 app.use('/api/v1/users', userRoute);
+app.use('/api/v1/message', messageRoute);
 
 app.use(errorHandler);
 
