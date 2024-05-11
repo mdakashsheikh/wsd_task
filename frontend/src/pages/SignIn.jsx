@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { saveJWTToken } from '../utils/utils';
+
 
 const SignIn = () => {
     const [formData, setFormData] = useState({})
     const [errors, setErrors] = useState();
-
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -19,14 +19,17 @@ const SignIn = () => {
         e.preventDefault();
         
         try {
+            console.log('Ok')
             const res = await axios.post('http://localhost:5000/api/v1/users/login', formData)
             console.log(res)
+            const token = res?.data.token;
+            saveJWTToken(token);
 
             if(res?.status === 400) {
                 setErrors(res?.message)
             }
 
-            navigate('/')
+            window.location = '/'
         } catch (error) {
             console.log(error)
             setErrors(error);
@@ -57,6 +60,12 @@ const SignIn = () => {
                    SignIn
                 </button>
             </form>
+            <div className='flex gap-2 mt-5'>
+                <p>Dont have an account?</p>
+                <Link to={'/sign-up'}>
+                    <span className='text-blue-700'>Sign Up</span>
+                </Link>
+            </div>
 
             {errors && <p className='text-red-500 mt-5'>{errors ? errors.message : ''}</p>}
         </div>
