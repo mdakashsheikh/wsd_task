@@ -4,7 +4,11 @@ const messageSchema = new mongoose.Schema({
     message: {
         type: String,
         required: [true, 'Please add a message']
-    }
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    },
 },
 {
     timestamps: true

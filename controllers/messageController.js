@@ -30,11 +30,98 @@ const sentenceStore = asyncHandler(async(req, res) => {
 
 //Create an API to return the number of words.
 const numberOfWord = asyncHandler(async(req, res) => {
+    const id = req.params.id;
 
+    const data = await Message.findById(id);
+    if(!data) {
+        res.status(404)
+        throw new Error('data is not found!')
+    }
+
+    const num = data.message?.split(" ").length;
+
+    res.status(200).json(num)
 })
+
+//Create an API to return the number of characters
+const numberOfCharacter = asyncHandler(async(req, res) => {
+    const id = req.params.id;
+
+    const data = await Message.findById(id);
+    if(!data) {
+        res.status(404)
+        throw new Error('data is not found!')
+    }
+
+    let regex = /[a-zA-Z0-9]/g;
+    const num = data.message?.match(regex).length;
+
+    res.status(200).json(num)
+})
+
+
+//Create an API to return the number of sentences
+const numberOfSentence = asyncHandler(async(req, res) => {
+    const id = req.params.id;
+
+    const data = await Message.findById(id);
+    if(!data) {
+        res.status(404)
+        throw new Error('data is not found!')
+    }
+
+    let regex = /[.!?]/;
+    const num = data.message?.split(regex).length;
+
+    res.status(200).json(num-1)
+})
+
+
+//Create an API to return the number of paragraphs
+const numberOfParagraph = asyncHandler(async(req, res) => {
+    const id = req.params.id;
+
+    const data = await Message.findById(id);
+    if(!data) {
+        res.status(404)
+        throw new Error('data is not found!')
+    }
+
+    const num = data.message?.split(/\n\s*\n/).filter(Boolean).length;
+
+    res.status(200).json(num)
+})
+
+//Create an API to return the longest words in paragraphs
+const longestWordsParagraph = asyncHandler(async(req, res) => {
+    const id = req.params.id;
+
+    const data = await Message.findById(id);
+    if(!data) {
+        res.status(404)
+        throw new Error('data is not found!')
+    }
+
+    let str = data.message?.match(/[a-zA-Z0-9]+/gi);
+    let largest = "";
+ 
+
+    for (let i = 0; i < str.length; i++) {
+     
+        if (str[i].length > largest.length) {
+            largest = str[i];
+        }
+    }
+
+    res.status(200).json(largest)
+})
+
 
 module.exports = {
     sentenceStore,
     numberOfWord,
-    
+    numberOfCharacter,
+    numberOfSentence,
+    numberOfParagraph,
+    longestWordsParagraph
 }
