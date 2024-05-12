@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { useEffect , useState} from 'react';
 import { getJWTToken } from './utils/utils';
 import AddMessage from './pages/AddMessage';
+import ShowData from './pages/ShowData';
 
 function App() {
   const [tokenState, setTokenState] = useState(null);
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/add-message' element={<AddMessage/>} />
+        <Route path='/show-data' element={<ShowData/>} />
         <Route path='/sign-up' element={<SignUp/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
       </Routes>

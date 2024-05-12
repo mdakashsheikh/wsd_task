@@ -22,15 +22,11 @@ const AddMessage = () => {
                 headers
             })
 
-            console.log(res);
-
-            // if()
 
             window.location = '/'
 
         } catch (error) {
             console.log(error);
-            // window.location = '/'
         }
     }
     return (

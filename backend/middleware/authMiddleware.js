@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const protect = asyncHandler(async(req, res, next) => {
     
     try {
+    
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 

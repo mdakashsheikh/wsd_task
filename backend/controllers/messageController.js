@@ -27,6 +27,16 @@ const sentenceStore = asyncHandler(async(req, res) => {
     }
 })
 
+//Get All Messages
+const getAllMessages = asyncHandler(async(req, res) => {
+    
+    const allData = await Message.find({}).sort('-date');
+
+    res.status(200).json({
+        allData
+    })
+})
+
 
 //Create an API to return the number of words.
 const numberOfWord = asyncHandler(async(req, res) => {
@@ -119,6 +129,7 @@ const longestWordsParagraph = asyncHandler(async(req, res) => {
 
 module.exports = {
     sentenceStore,
+    getAllMessages,
     numberOfWord,
     numberOfCharacter,
     numberOfSentence,
