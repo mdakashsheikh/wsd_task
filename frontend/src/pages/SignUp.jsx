@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({})
@@ -59,6 +59,12 @@ const SignUp = () => {
                    SignUp
                 </button>
             </form>
+            <div className='flex gap-2 mt-5'>
+                <p>Have an account?</p>
+                <Link to={'/sign-in'}>
+                    <span className='text-blue-700'>Sign In</span>
+                </Link>
+            </div>
         </div>
     )
 }
